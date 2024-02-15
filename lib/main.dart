@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'constant/color_palette.dart';
+import 'constant/global_context.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      navigatorKey: globalNavigatorKey,
       theme: ThemeData(
         colorScheme: ColorPalette.colorScheme,
         useMaterial3: true,
