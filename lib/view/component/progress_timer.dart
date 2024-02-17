@@ -80,7 +80,7 @@ class ProgressTimerState extends State<ProgressTimer>
                     style: TextStyle(
                       fontSize: 12,
                       height: 1.3,
-                      color: ColorPalette.whiteGray,
+                      color: ColorPalette.lightGray,
                     ),
                   ),
                   AnimatedBuilder(
