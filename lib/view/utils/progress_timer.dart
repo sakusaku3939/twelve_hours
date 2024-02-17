@@ -79,7 +79,7 @@ class ProgressTimerState extends State<ProgressTimer>
                     "2024/02/15 のルーム",
                     style: TextStyle(
                       fontSize: 12,
-                      height: 1.2,
+                      height: 1.3,
                       color: ColorPalette.whiteGray,
                     ),
                   ),
