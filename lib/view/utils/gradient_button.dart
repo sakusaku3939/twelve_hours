@@ -18,21 +18,14 @@ class GradientButton extends HookConsumerWidget {
         borderRadius: BorderRadius.circular(48),
         gradient: ColorPalette.purplePinkGradient,
       ),
-      child: ElevatedButton(
+      child: TextButton(
         onPressed: () {},
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.transparent,
-          shadowColor: Colors.transparent,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(48),
-          ),
-        ),
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 12),
+          padding: const EdgeInsets.symmetric(vertical: 8),
           child: Text(
             text,
             style: const TextStyle(
-              fontSize: 20,
+              fontSize: 18,
               color: Colors.white,
             ),
           ),
