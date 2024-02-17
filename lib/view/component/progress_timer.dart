@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
-import 'package:twelve_hours/constant/color_palette.dart';
+import '../../constant/color_palette.dart';
 
 class ProgressTimer extends StatefulWidget {
   const ProgressTimer({super.key});

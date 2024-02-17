@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:twelve_hours/constant/color_palette.dart';
+
+import '../../constant/color_palette.dart';
 
 class GradientButton extends HookConsumerWidget {
   const GradientButton(

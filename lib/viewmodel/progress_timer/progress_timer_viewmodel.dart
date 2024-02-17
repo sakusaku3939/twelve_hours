@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:twelve_hours/viewmodel/progress_timer/progress_timer_state/progress_timer_state.dart';
+
+import 'progress_timer_state/progress_timer_state.dart';
 
 final progressTimerProvider = StateNotifierProvider.autoDispose<
     ProgressTimerViewModel, ProgressTimerState>(
@@ -17,6 +18,5 @@ class ProgressTimerViewModel extends StateNotifier<ProgressTimerState> {
     init();
   }
 
-  void init() {
-  }
+  void init() {}
 }

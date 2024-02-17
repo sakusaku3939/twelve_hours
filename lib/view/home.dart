@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:twelve_hours/view/component/gradient_button.dart';
-import 'package:twelve_hours/view/component/progress_timer.dart';
+
+import 'component/gradient_button.dart';
+import 'component/progress_timer.dart';
 
 class Home extends HookConsumerWidget {
   const Home({super.key});
