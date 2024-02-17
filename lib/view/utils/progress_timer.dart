@@ -7,13 +7,13 @@ class ProgressTimer extends StatefulWidget {
   const ProgressTimer({super.key});
 
   @override
-  _ProgressTimerState createState() => _ProgressTimerState();
+  ProgressTimerState createState() => ProgressTimerState();
 }
 
-class _ProgressTimerState extends State<ProgressTimer>
+class ProgressTimerState extends State<ProgressTimer>
     with TickerProviderStateMixin {
   late AnimationController controller;
-  DateTime recordedTime = DateTime.now().subtract(const Duration(hours: 1));
+  DateTime twelveHours = DateTime.now().add(const Duration(hours: 12));
 
   String get timerText {
     Duration duration = controller.duration! * controller.value;
@@ -26,22 +26,33 @@ class _ProgressTimerState extends State<ProgressTimer>
   @override
   void initState() {
     super.initState();
-    Duration timePassed = DateTime.now().difference(recordedTime);
-    Duration timeLeft = const Duration(hours: 12) - timePassed;
-    if (timeLeft.inSeconds > 0) {
+    Duration remainingTime = twelveHours.difference(DateTime.now());
+    if (remainingTime.inSeconds > 0) {
       controller = AnimationController(
         vsync: this,
-        duration: timeLeft,
+        duration: remainingTime,
       );
+      controller.reverse(from: 1.0);
     } else {
       // TODO 12時間を過ぎた場合の処理
     }
+    controller.addStatusListener((status) {
+      if (status == AnimationStatus.dismissed) {
+        print('Animation completed');
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(80),
+      padding: const EdgeInsets.all(88),
       child: AspectRatio(
         aspectRatio: 1.0,
         child: Stack(
@@ -61,9 +72,30 @@ class _ProgressTimerState extends State<ProgressTimer>
               ),
             ),
             Center(
-              child: Text(
-                timerText,
-                style: const TextStyle(fontSize: 32),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Text(
+                    "2024/02/15 のルーム",
+                    style: TextStyle(
+                      fontSize: 12,
+                      height: 1.2,
+                      color: ColorPalette.whiteGray,
+                    ),
+                  ),
+                  AnimatedBuilder(
+                    animation: controller,
+                    builder: (BuildContext context, Widget? child) {
+                      return Text(
+                        timerText,
+                        style: const TextStyle(
+                          fontSize: 40,
+                          height: 1.2,
+                        ),
+                      );
+                    },
+                  ),
+                ],
               ),
             ),
           ],
