@@ -9,6 +9,7 @@ class ColorPalette {
   static const Color neonPink = Color(0xffD335F5);
   static const Color pink = Color(0xffC750FF);
   static const Color whiteGray = Color(0xffBDBDBD);
+  static const Color grey = Color(0xff9E9E9E);
 
   static const purplePinkGradient = LinearGradient(
     begin: Alignment.topLeft,

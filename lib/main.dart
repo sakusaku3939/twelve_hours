@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:twelve_hours/view/home.dart';
 
 import 'constant/color_palette.dart';
@@ -28,8 +29,9 @@ class MyApp extends StatelessWidget {
       supportedLocales: const [
         Locale("ja", "JP"),
       ],
-      home: const Home(),
+      home: const ProviderScope(
+        child: Home(),
+      ),
     );
   }
 }
-
