@@ -7,9 +7,11 @@ class GradientButton extends HookConsumerWidget {
   const GradientButton(
     this.text, {
     super.key,
+    this.onPressed,
   });
 
   final String text;
+  final void Function()? onPressed;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -20,7 +22,7 @@ class GradientButton extends HookConsumerWidget {
         gradient: ColorPalette.purplePinkGradient,
       ),
       child: TextButton(
-        onPressed: () {},
+        onPressed: onPressed,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 8),
           child: Text(

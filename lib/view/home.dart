@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:twelve_hours/viewmodel/rounded_sheet/rounded_sheet_viewmodel.dart';
+import 'package:twelve_hours/view/member_voting_view.dart';
 
 import 'component/gradient_button.dart';
 import 'component/progress_timer.dart';
@@ -12,7 +12,6 @@ class Home extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return WillPopScope(
       onWillPop: () async {
-        ref.read(roundedSheetProvider.notifier).closeSheet();
         return false;
       },
       child: GestureDetector(
@@ -30,9 +29,20 @@ class Home extends HookConsumerWidget {
                     children: [
                       _profile(ref),
                       const ProgressTimer(),
-                      const GradientButton("参加"),
+                      GradientButton(
+                        "参加",
+                        onPressed: () {},
+                      ),
                       const SizedBox(height: 12),
-                      const GradientButton("ルームを作成"),
+                      GradientButton(
+                        "ルームを作成",
+                        onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const MemberVotingView(),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),

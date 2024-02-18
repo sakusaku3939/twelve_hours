@@ -19,6 +19,7 @@ dependencies:
   json_annotation: ^4.8.1
   hooks_riverpod: ^2.3.10
   flutter_hooks: ^0.20.5
+  custom_sliding_segmented_control: ^1.8.1
 
 dev_dependencies:
   flutter_test:
