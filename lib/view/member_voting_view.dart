@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:twelve_hours/constant/color_palette.dart';
 import 'package:twelve_hours/view/component/gradient_button.dart';
 import 'package:twelve_hours/view/component/voting_profile_icon.dart';
+import 'package:twelve_hours/viewmodel/member_voting/member_voting_viewmodel.dart';
 
 class MemberVotingView extends HookConsumerWidget {
   const MemberVotingView({super.key});
@@ -92,12 +93,20 @@ class MemberVotingView extends HookConsumerWidget {
                 const SizedBox(height: 24),
                 SizedBox(
                   height: 240,
-                  child: GridView.count(
-                    crossAxisCount: 3,
-                    mainAxisSpacing: 8,
-                    children: List.generate(12, (index) {
-                      return const VotingProfileIcon();
-                    }),
+                  child: GridView.builder(
+                    itemCount:
+                        ref.watch(memberVotingProvider).votingMembers.length,
+                    itemBuilder: (context, index) {
+                      return VotingProfileIcon(
+                        ref.watch(memberVotingProvider).votingMembers[index],
+                        index: index,
+                      );
+                    },
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      mainAxisSpacing: 8,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 56),
