@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:twelve_hours/constant/color_palette.dart';
+import 'package:twelve_hours/view/component/gradient_button.dart';
+import 'package:twelve_hours/view/component/voting_profile_icon.dart';
 
 class MemberVotingView extends HookConsumerWidget {
   const MemberVotingView({super.key});
@@ -24,11 +26,11 @@ class MemberVotingView extends HookConsumerWidget {
                     fontSize: 24,
                   ),
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 8),
                 const Text(
                   "6人",
                   style: TextStyle(
-                    fontSize: 24,
+                    fontSize: 32,
                   ),
                 ),
                 const SizedBox(height: 16),
@@ -40,28 +42,32 @@ class MemberVotingView extends HookConsumerWidget {
                         "全て",
                         style: TextStyle(
                           fontSize: 12,
-                          color: current.value == 0 ? Colors.white : Colors.black,
+                          color:
+                              current.value == 0 ? Colors.white : Colors.black,
                         ),
                       ),
                       1: Text(
                         "男性",
                         style: TextStyle(
                           fontSize: 12,
-                          color: current.value == 1 ? Colors.white : Colors.black,
+                          color:
+                              current.value == 1 ? Colors.white : Colors.black,
                         ),
                       ),
                       2: Text(
                         "女性",
                         style: TextStyle(
                           fontSize: 12,
-                          color: current.value == 2 ? Colors.white : Colors.black,
+                          color:
+                              current.value == 2 ? Colors.white : Colors.black,
                         ),
                       ),
                       3: Text(
                         "その他",
                         style: TextStyle(
                           fontSize: 12,
-                          color: current.value == 3 ? Colors.white : Colors.black,
+                          color:
+                              current.value == 3 ? Colors.white : Colors.black,
                         ),
                       ),
                     },
@@ -83,6 +89,19 @@ class MemberVotingView extends HookConsumerWidget {
                     },
                   ),
                 ),
+                const SizedBox(height: 24),
+                SizedBox(
+                  height: 240,
+                  child: GridView.count(
+                    crossAxisCount: 3,
+                    mainAxisSpacing: 8,
+                    children: List.generate(12, (index) {
+                      return const VotingProfileIcon();
+                    }),
+                  ),
+                ),
+                const SizedBox(height: 56),
+                const GradientButton("選択を確定"),
               ],
             ),
           ),
