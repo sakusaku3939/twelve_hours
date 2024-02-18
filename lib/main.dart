@@ -7,7 +7,9 @@ import 'constant/color_palette.dart';
 import 'constant/global_context.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    const ProviderScope(child: MyApp()),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -29,9 +31,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: const [
         Locale("ja", "JP"),
       ],
-      home: const ProviderScope(
-        child: Home(),
-      ),
+      home: const Home(),
     );
   }
 }
