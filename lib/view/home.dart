@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:twelve_hours/view/id_input_view.dart';
 import 'package:twelve_hours/view/member_voting_view.dart';
 
 import 'component/gradient_button.dart';
@@ -31,7 +32,12 @@ class Home extends HookConsumerWidget {
                       const ProgressTimer(),
                       GradientButton(
                         "参加",
-                        onPressed: () {},
+                        onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const IdInputView(),
+                          ),
+                        ),
                       ),
                       const SizedBox(height: 12),
                       GradientButton(
