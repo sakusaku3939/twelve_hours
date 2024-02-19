@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'rounded_sheet_state/rounded_sheet_state.dart';
-import '../../constant/safe_area_size.dart';
+import '../../constant/main_area.dart';
 
 final roundedSheetProvider =
     StateNotifierProvider.autoDispose<RoundedSheetViewModel, RoundedSheetState>(
@@ -31,7 +31,7 @@ class RoundedSheetViewModel extends StateNotifier<RoundedSheetState> {
 
   Future<void> openSheet({required double size}) async {
     await controller.animateTo(
-      size / SafeAreaSize.height + 0.03,
+      size / MainArea.height + 0.03,
       duration: const Duration(milliseconds: 200),
       curve: Curves.ease,
     );
