@@ -23,6 +23,7 @@ dependencies:
   expandable_page_view: ^1.0.17
   smooth_page_indicator: ^1.1.0
   flutter_launcher_icons: ^0.13.1
+  firebase_core: ^2.24.2
 
 dev_dependencies:
   flutter_test:
