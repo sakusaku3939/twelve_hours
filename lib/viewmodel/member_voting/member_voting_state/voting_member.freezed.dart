@@ -16,7 +16,9 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$VotingMember {
+  int get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  String get gender => throw _privateConstructorUsedError;
   bool get selected => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -30,7 +32,7 @@ abstract class $VotingMemberCopyWith<$Res> {
           VotingMember value, $Res Function(VotingMember) then) =
       _$VotingMemberCopyWithImpl<$Res, VotingMember>;
   @useResult
-  $Res call({String name, bool selected});
+  $Res call({int id, String name, String gender, bool selected});
 }
 
 /// @nodoc
@@ -46,13 +48,23 @@ class _$VotingMemberCopyWithImpl<$Res, $Val extends VotingMember>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? name = null,
+    Object? gender = null,
     Object? selected = null,
   }) {
     return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      gender: null == gender
+          ? _value.gender
+          : gender // ignore: cast_nullable_to_non_nullable
               as String,
       selected: null == selected
           ? _value.selected
@@ -70,7 +82,7 @@ abstract class _$$VotingMemberImplCopyWith<$Res>
       __$$VotingMemberImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, bool selected});
+  $Res call({int id, String name, String gender, bool selected});
 }
 
 /// @nodoc
@@ -84,13 +96,23 @@ class __$$VotingMemberImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? name = null,
+    Object? gender = null,
     Object? selected = null,
   }) {
     return _then(_$VotingMemberImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      gender: null == gender
+          ? _value.gender
+          : gender // ignore: cast_nullable_to_non_nullable
               as String,
       selected: null == selected
           ? _value.selected
@@ -103,16 +125,24 @@ class __$$VotingMemberImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$VotingMemberImpl implements _VotingMember {
-  const _$VotingMemberImpl({required this.name, required this.selected});
+  const _$VotingMemberImpl(
+      {required this.id,
+      required this.name,
+      required this.gender,
+      required this.selected});
 
   @override
+  final int id;
+  @override
   final String name;
+  @override
+  final String gender;
   @override
   final bool selected;
 
   @override
   String toString() {
-    return 'VotingMember(name: $name, selected: $selected)';
+    return 'VotingMember(id: $id, name: $name, gender: $gender, selected: $selected)';
   }
 
   @override
@@ -120,13 +150,15 @@ class _$VotingMemberImpl implements _VotingMember {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$VotingMemberImpl &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
+            (identical(other.gender, gender) || other.gender == gender) &&
             (identical(other.selected, selected) ||
                 other.selected == selected));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, name, selected);
+  int get hashCode => Object.hash(runtimeType, id, name, gender, selected);
 
   @JsonKey(ignore: true)
   @override
@@ -137,11 +169,17 @@ class _$VotingMemberImpl implements _VotingMember {
 
 abstract class _VotingMember implements VotingMember {
   const factory _VotingMember(
-      {required final String name,
+      {required final int id,
+      required final String name,
+      required final String gender,
       required final bool selected}) = _$VotingMemberImpl;
 
   @override
+  int get id;
+  @override
   String get name;
+  @override
+  String get gender;
   @override
   bool get selected;
   @override

@@ -87,6 +87,7 @@ class MemberVotingView extends HookConsumerWidget {
                     curve: Curves.easeOut,
                     onValueChanged: (v) {
                       current.value = v;
+                      ref.read(memberVotingProvider.notifier).changeGenderTab(v);
                     },
                   ),
                 ),
