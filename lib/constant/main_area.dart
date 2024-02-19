@@ -15,8 +15,7 @@ class MainArea extends StatelessWidget {
   static double get scale {
     final localSize = MediaQuery.of(globalContext).size;
     final scaleX = localSize.width / _developerOriginSize.width;
-    final scaleY = localSize.height / _developerOriginSize.height;
-    return (scaleX + scaleY) / 2;
+    return scaleX;
   }
 
   const MainArea({super.key, required this.child});
