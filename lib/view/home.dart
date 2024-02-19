@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:twelve_hours/view/id_input_view.dart';
 import 'package:twelve_hours/view/member_voting_view.dart';
@@ -101,22 +102,16 @@ class Home extends HookConsumerWidget {
   }
 }
 
-class GenderDropdown extends StatefulWidget {
+class GenderDropdown extends HookConsumerWidget {
   const GenderDropdown({super.key});
 
   @override
-  GenderDropdownState createState() => GenderDropdownState();
-}
-
-class GenderDropdownState extends State<GenderDropdown> {
-  String _selectedGender = '男性';
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final selectedGender = useState("男性");
     return DropdownButton<String>(
-      value: _selectedGender,
-      onChanged: (newValue) => setState(() => _selectedGender = newValue!),
-      items: ['男性', '女性', 'その他'].map((gender) {
+      value: selectedGender.value,
+      onChanged: (newValue) => selectedGender.value = newValue!,
+      items: ["男性", "女性", "その他"].map((gender) {
         return DropdownMenuItem(value: gender, child: Text(gender));
       }).toList(),
       style: const TextStyle(
