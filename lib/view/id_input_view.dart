@@ -49,6 +49,7 @@ class IdInputView extends HookConsumerWidget {
         textAlign: TextAlign.center,
         keyboardType: TextInputType.number,
         maxLength: 1,
+        style: const TextStyle(fontSize: 20, height: 1.1),
         decoration: const InputDecoration(
           counterText: "",
           enabledBorder: OutlineInputBorder(
@@ -57,6 +58,7 @@ class IdInputView extends HookConsumerWidget {
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(width: 2),
           ),
+          contentPadding: EdgeInsets.symmetric(vertical: 16),
         ),
         inputFormatters: [FilteringTextInputFormatter.digitsOnly],
         onChanged: (value) {
