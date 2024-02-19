@@ -6,6 +6,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:twelve_hours/constant/color_palette.dart';
+import 'package:twelve_hours/constant/main_area.dart';
 import 'package:twelve_hours/view/component/result_card.dart';
 import 'package:twelve_hours/view/id_input_view.dart';
 import 'package:twelve_hours/view/member_voting_view.dart';
@@ -28,38 +29,40 @@ class Home extends HookConsumerWidget {
         child: Scaffold(
           resizeToAvoidBottomInset: false,
           body: SafeArea(
-            child: Stack(
-              children: [
-                Center(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      _profile(),
-                      _carousel(),
-                      GradientButton(
-                        "参加",
-                        onPressed: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const IdInputView(),
+            child: MainArea(
+              child: Stack(
+                children: [
+                  Center(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        _profile(),
+                        _carousel(),
+                        GradientButton(
+                          "参加",
+                          onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const IdInputView(),
+                            ),
                           ),
                         ),
-                      ),
-                      const SizedBox(height: 12),
-                      GradientButton(
-                        "ルームを作成",
-                        onPressed: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const MemberVotingView(),
+                        const SizedBox(height: 12),
+                        GradientButton(
+                          "ルームを作成",
+                          onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const MemberVotingView(),
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
@@ -110,7 +113,7 @@ class Home extends HookConsumerWidget {
   Widget _carousel() {
     final carouselController = PageController(viewportFraction: 0.7);
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 48),
+      padding: const EdgeInsets.symmetric(vertical: 32),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -122,15 +125,23 @@ class Home extends HookConsumerWidget {
               if (!carouselController.position.haveDimensions) {
                 return const SizedBox();
               }
-              return AnimatedBuilder(
-                animation: carouselController,
-                builder: (_, __) => Transform.scale(
-                  scale: max(
-                    0.8,
-                    (1 - (carouselController.page! - index).abs() / 2),
+              return Stack(
+                alignment: Alignment.center,
+                children: [
+                  const SizedBox(height: 300),
+                  AnimatedBuilder(
+                    animation: carouselController,
+                    builder: (_, __) => Transform.scale(
+                      scale: max(
+                        0.8,
+                        (1 - (carouselController.page! - index).abs() / 2),
+                      ),
+                      child: index == 0
+                          ? const ProgressTimer()
+                          : const ResultCard(),
+                    ),
                   ),
-                  child: const ResultCard(),
-                ),
+                ],
               );
             },
           ),

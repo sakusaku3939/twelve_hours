@@ -52,7 +52,7 @@ class ProgressTimerState extends State<ProgressTimer>
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(88),
+      padding: const EdgeInsets.all(16),
       child: AspectRatio(
         aspectRatio: 1.0,
         child: Stack(
