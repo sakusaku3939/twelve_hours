@@ -1,6 +1,11 @@
+import 'dart:math';
+
+import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:twelve_hours/constant/color_palette.dart';
 import 'package:twelve_hours/view/component/result_card.dart';
 import 'package:twelve_hours/view/id_input_view.dart';
 import 'package:twelve_hours/view/member_voting_view.dart';
@@ -31,8 +36,7 @@ class Home extends HookConsumerWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       _profile(),
-                      // const ProgressTimer(),
-                      const ResultCard(),
+                      _carousel(),
                       GradientButton(
                         "参加",
                         onPressed: () => Navigator.push(
@@ -100,6 +104,49 @@ class Home extends HookConsumerWidget {
           ],
         ),
       ],
+    );
+  }
+
+  Widget _carousel() {
+    final carouselController = PageController(viewportFraction: 0.7);
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 48),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ExpandablePageView.builder(
+            controller: carouselController,
+            clipBehavior: Clip.none,
+            itemCount: 3,
+            itemBuilder: (_, index) {
+              if (!carouselController.position.haveDimensions) {
+                return const SizedBox();
+              }
+              return AnimatedBuilder(
+                animation: carouselController,
+                builder: (_, __) => Transform.scale(
+                  scale: max(
+                    0.8,
+                    (1 - (carouselController.page! - index).abs() / 2),
+                  ),
+                  child: const ResultCard(),
+                ),
+              );
+            },
+          ),
+          const SizedBox(height: 24),
+          SmoothPageIndicator(
+            controller: carouselController,
+            count: 3,
+            effect: const ExpandingDotsEffect(
+              dotColor: ColorPalette.whiteGray,
+              activeDotColor: ColorPalette.darkPink,
+              dotHeight: 4,
+              dotWidth: 16,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

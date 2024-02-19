@@ -7,78 +7,74 @@ class ResultCard extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 56),
-      child: DecoratedBox(
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        gradient: ColorPalette.purplePinkGradient,
+        borderRadius: BorderRadius.circular(32),
+      ),
+      child: Container(
+        margin: const EdgeInsets.all(4),
         decoration: BoxDecoration(
-          gradient: ColorPalette.purplePinkGradient,
-          borderRadius: BorderRadius.circular(32),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(28),
         ),
-        child: Container(
-          margin: const EdgeInsets.all(4),
-          width: 280,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(28),
-          ),
-          child: Column(
-            children: [
-              const SizedBox(height: 8),
-              const Text(
-                "2024/02/15",
-                style: TextStyle(
-                  color: ColorPalette.lightGray,
+        child: Column(
+          children: [
+            const SizedBox(height: 8),
+            const Text(
+              "2024/02/15",
+              style: TextStyle(
+                color: ColorPalette.lightGray,
+              ),
+            ),
+            const SizedBox(height: 12),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  "assets/images/hold_hands.png",
+                  height: 32,
                 ),
-              ),
-              const SizedBox(height: 12),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    "assets/images/hold_hands.png",
-                    height: 32,
+                const SizedBox(width: 24),
+                const Text(
+                  "1組",
+                  style: TextStyle(
+                    fontSize: 28,
+                    color: ColorPalette.darkPink,
                   ),
-                  const SizedBox(width: 24),
-                  const Text(
-                    "1組",
-                    style: TextStyle(
-                      fontSize: 28,
-                      color: ColorPalette.darkPink,
-                    ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 12),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                const Text(
+                  "あなたへの",
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: ColorPalette.darkPink,
                   ),
-                ],
-              ),
-              const SizedBox(height: 12),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  const Text(
-                    "あなたへの",
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: ColorPalette.darkPink,
-                    ),
+                ),
+                const SizedBox(width: 8),
+                Image.asset(
+                  "assets/images/good.png",
+                  height: 32,
+                ),
+                const SizedBox(width: 16),
+                const Text(
+                  "2人",
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: ColorPalette.darkPink,
                   ),
-                  const SizedBox(width: 8),
-                  Image.asset(
-                    "assets/images/good.png",
-                    height: 32,
-                  ),
-                  const SizedBox(width: 16),
-                  const Text(
-                    "2人",
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: ColorPalette.darkPink,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 24),
-              _profile(),
-            ],
-          ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 24),
+            _profile(),
+          ],
         ),
       ),
     );
