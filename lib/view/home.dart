@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:twelve_hours/view/component/result_card.dart';
 import 'package:twelve_hours/view/id_input_view.dart';
 import 'package:twelve_hours/view/member_voting_view.dart';
 
@@ -29,8 +30,9 @@ class Home extends HookConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      _profile(ref),
-                      const ProgressTimer(),
+                      _profile(),
+                      // const ProgressTimer(),
+                      const ResultCard(),
                       GradientButton(
                         "参加",
                         onPressed: () => Navigator.push(
@@ -61,7 +63,7 @@ class Home extends HookConsumerWidget {
     );
   }
 
-  Widget _profile(WidgetRef ref) {
+  Widget _profile() {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
