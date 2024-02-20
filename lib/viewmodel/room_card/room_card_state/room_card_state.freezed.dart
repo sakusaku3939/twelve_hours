@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$RoomCardState {
   List<RoomTable> get rooms => throw _privateConstructorUsedError;
+  List<bool> get has12hoursPassed => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $RoomCardStateCopyWith<RoomCardState> get copyWith =>
@@ -29,7 +30,7 @@ abstract class $RoomCardStateCopyWith<$Res> {
           RoomCardState value, $Res Function(RoomCardState) then) =
       _$RoomCardStateCopyWithImpl<$Res, RoomCardState>;
   @useResult
-  $Res call({List<RoomTable> rooms});
+  $Res call({List<RoomTable> rooms, List<bool> has12hoursPassed});
 }
 
 /// @nodoc
@@ -46,12 +47,17 @@ class _$RoomCardStateCopyWithImpl<$Res, $Val extends RoomCardState>
   @override
   $Res call({
     Object? rooms = null,
+    Object? has12hoursPassed = null,
   }) {
     return _then(_value.copyWith(
       rooms: null == rooms
           ? _value.rooms
           : rooms // ignore: cast_nullable_to_non_nullable
               as List<RoomTable>,
+      has12hoursPassed: null == has12hoursPassed
+          ? _value.has12hoursPassed
+          : has12hoursPassed // ignore: cast_nullable_to_non_nullable
+              as List<bool>,
     ) as $Val);
   }
 }
@@ -64,7 +70,7 @@ abstract class _$$RoomCardStateImplCopyWith<$Res>
       __$$RoomCardStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<RoomTable> rooms});
+  $Res call({List<RoomTable> rooms, List<bool> has12hoursPassed});
 }
 
 /// @nodoc
@@ -79,12 +85,17 @@ class __$$RoomCardStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? rooms = null,
+    Object? has12hoursPassed = null,
   }) {
     return _then(_$RoomCardStateImpl(
       rooms: null == rooms
           ? _value._rooms
           : rooms // ignore: cast_nullable_to_non_nullable
               as List<RoomTable>,
+      has12hoursPassed: null == has12hoursPassed
+          ? _value._has12hoursPassed
+          : has12hoursPassed // ignore: cast_nullable_to_non_nullable
+              as List<bool>,
     ));
   }
 }
@@ -92,8 +103,11 @@ class __$$RoomCardStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$RoomCardStateImpl implements _RoomCardState {
-  const _$RoomCardStateImpl({required final List<RoomTable> rooms})
-      : _rooms = rooms;
+  const _$RoomCardStateImpl(
+      {required final List<RoomTable> rooms,
+      required final List<bool> has12hoursPassed})
+      : _rooms = rooms,
+        _has12hoursPassed = has12hoursPassed;
 
   final List<RoomTable> _rooms;
   @override
@@ -103,9 +117,18 @@ class _$RoomCardStateImpl implements _RoomCardState {
     return EqualUnmodifiableListView(_rooms);
   }
 
+  final List<bool> _has12hoursPassed;
+  @override
+  List<bool> get has12hoursPassed {
+    if (_has12hoursPassed is EqualUnmodifiableListView)
+      return _has12hoursPassed;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_has12hoursPassed);
+  }
+
   @override
   String toString() {
-    return 'RoomCardState(rooms: $rooms)';
+    return 'RoomCardState(rooms: $rooms, has12hoursPassed: $has12hoursPassed)';
   }
 
   @override
@@ -113,12 +136,16 @@ class _$RoomCardStateImpl implements _RoomCardState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$RoomCardStateImpl &&
-            const DeepCollectionEquality().equals(other._rooms, _rooms));
+            const DeepCollectionEquality().equals(other._rooms, _rooms) &&
+            const DeepCollectionEquality()
+                .equals(other._has12hoursPassed, _has12hoursPassed));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_rooms));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_rooms),
+      const DeepCollectionEquality().hash(_has12hoursPassed));
 
   @JsonKey(ignore: true)
   @override
@@ -128,11 +155,14 @@ class _$RoomCardStateImpl implements _RoomCardState {
 }
 
 abstract class _RoomCardState implements RoomCardState {
-  const factory _RoomCardState({required final List<RoomTable> rooms}) =
-      _$RoomCardStateImpl;
+  const factory _RoomCardState(
+      {required final List<RoomTable> rooms,
+      required final List<bool> has12hoursPassed}) = _$RoomCardStateImpl;
 
   @override
   List<RoomTable> get rooms;
+  @override
+  List<bool> get has12hoursPassed;
   @override
   @JsonKey(ignore: true)
   _$$RoomCardStateImplCopyWith<_$RoomCardStateImpl> get copyWith =>

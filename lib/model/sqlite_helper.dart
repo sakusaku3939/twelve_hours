@@ -43,6 +43,26 @@ class SqliteHelper {
           RoomTable.name,
           RoomTable(
             id: 0,
+            likeIds: "1",
+            matchedUsers: "",
+            likedCount: 1,
+            date: DateTime.tryParse("2024-02-19 07:00:00")!,
+          ).toMap(),
+        );
+        await db.insert(
+          RoomTable.name,
+          RoomTable(
+            id: 1,
+            likeIds: "2,4",
+            matchedUsers: "1",
+            likedCount: 2,
+            date: DateTime.tryParse("2024-02-20 07:00:00")!,
+          ).toMap(),
+        );
+        await db.insert(
+          RoomTable.name,
+          RoomTable(
+            id: 2,
             likeIds: "0,2",
             matchedUsers: null,
             likedCount: null,

@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:twelve_hours/constant/color_palette.dart';
+import 'package:intl/intl.dart';
+import 'package:twelve_hours/viewmodel/room_card/room_card_viewmodel.dart';
+
+import '../../model/database_table.dart';
 
 class ResultCard extends HookConsumerWidget {
-  const ResultCard({super.key});
+  const ResultCard({
+    super.key,
+    required this.room,
+  });
+
+  final RoomTable room;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -21,9 +30,9 @@ class ResultCard extends HookConsumerWidget {
         child: Column(
           children: [
             const SizedBox(height: 8),
-            const Text(
-              "2024/02/15",
-              style: TextStyle(
+            Text(
+              DateFormat('yyyy/MM/dd').format(room.date),
+              style: const TextStyle(
                 color: ColorPalette.lightGray,
               ),
             ),
@@ -36,9 +45,9 @@ class ResultCard extends HookConsumerWidget {
                   height: 32,
                 ),
                 const SizedBox(width: 24),
-                const Text(
-                  "1組",
-                  style: TextStyle(
+                Text(
+                  "${ref.read(roomCardProvider.notifier).splitIds(room.matchedUsers!).length}組",
+                  style: const TextStyle(
                     fontSize: 28,
                     color: ColorPalette.darkPink,
                   ),
@@ -63,9 +72,9 @@ class ResultCard extends HookConsumerWidget {
                   height: 32,
                 ),
                 const SizedBox(width: 16),
-                const Text(
-                  "2人",
-                  style: TextStyle(
+                Text(
+                  "${room.likedCount}人",
+                  style: const TextStyle(
                     fontSize: 20,
                     color: ColorPalette.darkPink,
                   ),

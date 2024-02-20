@@ -119,7 +119,7 @@ class Home extends HookConsumerWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          ref.watch(roomCardProvider).rooms.isNotEmpty
+          rooms.isNotEmpty
               ? ExpandablePageView.builder(
                   controller: carouselController,
                   clipBehavior: Clip.none,
@@ -140,9 +140,9 @@ class Home extends HookConsumerWidget {
                               (1 -
                                   (carouselController.page! - index).abs() / 2),
                             ),
-                            child: index == 0
-                                ? ProgressTimer(room: rooms[index])
-                                : const ResultCard(),
+                            child: ref.watch(roomCardProvider).has12hoursPassed[index]
+                                ? ResultCard(room: rooms[index])
+                                : ProgressTimer(room: rooms[index]),
                           ),
                         ),
                       ],

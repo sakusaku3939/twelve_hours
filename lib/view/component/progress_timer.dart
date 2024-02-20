@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:twelve_hours/model/database_table.dart';
 import 'dart:math' as math;
 import 'package:intl/intl.dart';
+import 'package:twelve_hours/viewmodel/room_card/room_card_viewmodel.dart';
 
 import '../../constant/color_palette.dart';
 
@@ -30,8 +31,9 @@ class ProgressTimer extends HookConsumerWidget {
 
     useEffect(() {
       void listener(AnimationStatus status) {
+        // 12時間アニメーション完了時
         if (status == AnimationStatus.dismissed) {
-          print('Animation completed');
+          ref.read(roomCardProvider.notifier).fetchMatchingResults();
         }
       }
 
