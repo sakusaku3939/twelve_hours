@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:twelve_hours/model/database_table.dart';
 import 'dart:math' as math;
 import 'package:intl/intl.dart';
 
 import '../../constant/color_palette.dart';
 
-class ProgressTimer extends StatefulWidget {
+class ProgressTimer extends HookConsumerWidget {
   const ProgressTimer({
     super.key,
     required this.room,
@@ -14,50 +16,29 @@ class ProgressTimer extends StatefulWidget {
   final RoomTable room;
 
   @override
-  ProgressTimerState createState() => ProgressTimerState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final twelveHours = room.date.add(const Duration(hours: 12));
+    Duration remainingTime = twelveHours.difference(DateTime.now());
 
-class ProgressTimerState extends State<ProgressTimer>
-    with TickerProviderStateMixin {
-  late AnimationController controller;
-  final twelveHours = DateTime.now().add(const Duration(hours: 12));
-
-  String get timerText {
-    Duration duration = controller.duration! * controller.value;
-    String hours = duration.inHours.toString().padLeft(2, '0');
-    String minutes = (duration.inMinutes % 60).toString().padLeft(2, '0');
-    String seconds = (duration.inSeconds % 60).toString().padLeft(2, '0');
-    return '$hours:$minutes:$seconds';
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    Duration remainingTime = twelveHours.difference(widget.room.date);
-    if (remainingTime.inSeconds > 0) {
-      controller = AnimationController(
-        vsync: this,
-        duration: remainingTime,
-      );
-      controller.reverse(from: 1.0);
-    } else {
-      // TODO 12時間を過ぎた場合の処理
+    // 12時間を過ぎた場合はすべて0に設定する
+    if (remainingTime.inSeconds < 0) {
+      remainingTime = const Duration(seconds: 0);
     }
-    controller.addStatusListener((status) {
-      if (status == AnimationStatus.dismissed) {
-        print('Animation completed');
+
+    final controller = useAnimationController(duration: remainingTime)
+      ..reverse(from: 1.0);
+
+    useEffect(() {
+      void listener(AnimationStatus status) {
+        if (status == AnimationStatus.dismissed) {
+          print('Animation completed');
+        }
       }
-    });
-  }
 
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
+      controller.addStatusListener(listener);
+      return () => controller.removeStatusListener(listener);
+    }, [controller]);
 
-  @override
-  Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16),
       child: AspectRatio(
@@ -83,7 +64,7 @@ class ProgressTimerState extends State<ProgressTimer>
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    "${DateFormat('yyyy/MM/dd').format(widget.room.date)} のルーム",
+                    "${DateFormat('yyyy/MM/dd').format(room.date)} のルーム",
                     style: const TextStyle(
                       fontSize: 12,
                       height: 1.3,
@@ -94,7 +75,7 @@ class ProgressTimerState extends State<ProgressTimer>
                     animation: controller,
                     builder: (BuildContext context, Widget? child) {
                       return Text(
-                        timerText,
+                        timerText(controller),
                         style: const TextStyle(
                           fontSize: 40,
                           height: 1.2,
@@ -109,6 +90,14 @@ class ProgressTimerState extends State<ProgressTimer>
         ),
       ),
     );
+  }
+
+  String timerText(AnimationController controller) {
+    final Duration duration = controller.duration! * controller.value;
+    final String hours = duration.inHours.toString().padLeft(2, '0');
+    final String minutes = (duration.inMinutes % 60).toString().padLeft(2, '0');
+    final String seconds = (duration.inSeconds % 60).toString().padLeft(2, '0');
+    return '$hours:$minutes:$seconds';
   }
 }
 
