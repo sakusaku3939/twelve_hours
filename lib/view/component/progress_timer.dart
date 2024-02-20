@@ -18,20 +18,18 @@ class ProgressTimer extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final twelveHours = room.date.add(const Duration(hours: 12));
-    Duration remainingTime = twelveHours.difference(DateTime.now());
+    final diffInSeconds = DateTime.now().difference(room.date).inSeconds;
+    final percentTimeRemaining = 1 - diffInSeconds / (12 * 60 * 60);
 
-    // 12時間を過ぎた場合はすべて0に設定する
-    if (remainingTime.inSeconds < 0) {
-      remainingTime = const Duration(seconds: 0);
-    }
-
-    final controller = useAnimationController(duration: remainingTime)
-      ..reverse(from: 1.0);
+    final tickerProvider = useSingleTickerProvider();
+    final controller = useAnimationController(
+      vsync: tickerProvider,
+      duration: const Duration(hours: 12),
+    )..reverse(from: percentTimeRemaining);
 
     useEffect(() {
       void listener(AnimationStatus status) {
-        // 12時間アニメーション完了時
+        // 12時間のアニメーション完了時
         if (status == AnimationStatus.dismissed) {
           ref.read(roomCardProvider.notifier).fetchMatchingResults();
         }
