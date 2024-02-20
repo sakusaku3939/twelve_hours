@@ -7,6 +7,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:twelve_hours/constant/color_palette.dart';
 import 'package:twelve_hours/constant/main_area.dart';
+import 'package:twelve_hours/model/local_storage.dart';
 import 'package:twelve_hours/view/component/result_card.dart';
 import 'package:twelve_hours/view/id_input_view.dart';
 import 'package:twelve_hours/view/member_voting_view.dart';
@@ -94,7 +95,8 @@ class Home extends HookConsumerWidget {
             SizedBox(
               width: 120,
               child: TextField(
-                controller: TextEditingController(text: "田中太郎"),
+                controller: TextEditingController(
+                    text: LocalStorage.prefs.getString("name") ?? ""),
                 maxLength: 16,
                 decoration: const InputDecoration(
                   border: InputBorder.none,
@@ -103,6 +105,7 @@ class Home extends HookConsumerWidget {
                   isCollapsed: true,
                   counterText: "",
                 ),
+                onChanged: (t) => LocalStorage.prefs.setString("name", t),
               ),
             ),
           ],
@@ -140,7 +143,9 @@ class Home extends HookConsumerWidget {
                               (1 -
                                   (carouselController.page! - index).abs() / 2),
                             ),
-                            child: ref.watch(roomCardProvider).has12hoursPassed[index]
+                            child: ref
+                                    .watch(roomCardProvider)
+                                    .has12hoursPassed[index]
                                 ? ResultCard(room: rooms[index])
                                 : ProgressTimer(room: rooms[index]),
                           ),
@@ -172,10 +177,15 @@ class GenderDropdown extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selectedGender = useState("男性");
+    final selectedGender = useState(
+      LocalStorage.prefs.getString("gender") ?? "男性",
+    );
     return DropdownButton<String>(
       value: selectedGender.value,
-      onChanged: (newValue) => selectedGender.value = newValue!,
+      onChanged: (newValue) {
+        selectedGender.value = newValue!;
+        LocalStorage.prefs.setString("gender", newValue);
+      },
       items: ["男性", "女性", "その他"].map((gender) {
         return DropdownMenuItem(value: gender, child: Text(gender));
       }).toList(),
