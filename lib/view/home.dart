@@ -10,6 +10,7 @@ import 'package:twelve_hours/constant/main_area.dart';
 import 'package:twelve_hours/view/component/result_card.dart';
 import 'package:twelve_hours/view/id_input_view.dart';
 import 'package:twelve_hours/view/member_voting_view.dart';
+import 'package:twelve_hours/viewmodel/room_card/room_card_viewmodel.dart';
 
 import 'component/gradient_button.dart';
 import 'component/progress_timer.dart';
@@ -38,7 +39,7 @@ class Home extends HookConsumerWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         _profile(),
-                        _carousel(),
+                        _carousel(ref),
                         GradientButton(
                           "参加",
                           onPressed: () => Navigator.push(
@@ -110,45 +111,49 @@ class Home extends HookConsumerWidget {
     );
   }
 
-  Widget _carousel() {
+  Widget _carousel(WidgetRef ref) {
     final carouselController = PageController(viewportFraction: 0.7);
+    final rooms = ref.watch(roomCardProvider).rooms;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 32),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          ExpandablePageView.builder(
-            controller: carouselController,
-            clipBehavior: Clip.none,
-            itemCount: 3,
-            itemBuilder: (_, index) {
-              if (!carouselController.position.haveDimensions) {
-                return const SizedBox();
-              }
-              return Stack(
-                alignment: Alignment.center,
-                children: [
-                  const SizedBox(height: 300),
-                  AnimatedBuilder(
-                    animation: carouselController,
-                    builder: (_, __) => Transform.scale(
-                      scale: max(
-                        0.8,
-                        (1 - (carouselController.page! - index).abs() / 2),
-                      ),
-                      child: index == 0
-                          ? const ProgressTimer()
-                          : const ResultCard(),
-                    ),
-                  ),
-                ],
-              );
-            },
-          ),
+          ref.watch(roomCardProvider).rooms.isNotEmpty
+              ? ExpandablePageView.builder(
+                  controller: carouselController,
+                  clipBehavior: Clip.none,
+                  itemCount: rooms.length,
+                  itemBuilder: (_, index) {
+                    if (!carouselController.position.haveDimensions) {
+                      return const SizedBox(height: 300);
+                    }
+                    return Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        const SizedBox(height: 300),
+                        AnimatedBuilder(
+                          animation: carouselController,
+                          builder: (_, __) => Transform.scale(
+                            scale: max(
+                              0.8,
+                              (1 -
+                                  (carouselController.page! - index).abs() / 2),
+                            ),
+                            child: index == 0
+                                ? ProgressTimer(room: rooms[index])
+                                : const ResultCard(),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                )
+              : const SizedBox(height: 300),
           const SizedBox(height: 24),
           SmoothPageIndicator(
             controller: carouselController,
-            count: 3,
+            count: rooms.length,
             effect: const ExpandingDotsEffect(
               dotColor: ColorPalette.whiteGray,
               activeDotColor: ColorPalette.darkPink,

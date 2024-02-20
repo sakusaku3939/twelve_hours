@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:twelve_hours/model/database_table.dart';
 import 'dart:math' as math;
+import 'package:intl/intl.dart';
 
 import '../../constant/color_palette.dart';
 
 class ProgressTimer extends StatefulWidget {
-  const ProgressTimer({super.key});
+  const ProgressTimer({
+    super.key,
+    required this.room,
+  });
+
+  final RoomTable room;
 
   @override
   ProgressTimerState createState() => ProgressTimerState();
@@ -13,7 +20,7 @@ class ProgressTimer extends StatefulWidget {
 class ProgressTimerState extends State<ProgressTimer>
     with TickerProviderStateMixin {
   late AnimationController controller;
-  DateTime twelveHours = DateTime.now().add(const Duration(hours: 12));
+  final twelveHours = DateTime.now().add(const Duration(hours: 12));
 
   String get timerText {
     Duration duration = controller.duration! * controller.value;
@@ -26,7 +33,7 @@ class ProgressTimerState extends State<ProgressTimer>
   @override
   void initState() {
     super.initState();
-    Duration remainingTime = twelveHours.difference(DateTime.now());
+    Duration remainingTime = twelveHours.difference(widget.room.date);
     if (remainingTime.inSeconds > 0) {
       controller = AnimationController(
         vsync: this,
@@ -75,9 +82,9 @@ class ProgressTimerState extends State<ProgressTimer>
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Text(
-                    "2024/02/15 のルーム",
-                    style: TextStyle(
+                  Text(
+                    "${DateFormat('yyyy/MM/dd').format(widget.room.date)} のルーム",
+                    style: const TextStyle(
                       fontSize: 12,
                       height: 1.3,
                       color: ColorPalette.lightGray,
