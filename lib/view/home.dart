@@ -56,9 +56,9 @@ class Home extends HookConsumerWidget {
                         GradientButton(
                           "ルームを作成",
                           onPressed: () async {
-                            await FirebaseApi().createRoom();
+                            final id = await FirebaseApi().createRoom();
                             GlobalNavigator.push(
-                              const MemberVotingView(),
+                              MemberVotingView(roomId: id),
                             );
                           },
                         ),

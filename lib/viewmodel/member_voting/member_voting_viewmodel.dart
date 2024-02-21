@@ -47,9 +47,12 @@ class MemberVotingViewModel extends StateNotifier<MemberVotingState> {
       totalSelected = 2;
     } else {
       // allVotingMembers と votingMembers の両方に反映
-      allVotingMembers = allVotingMembers.map(
-        (e) => e.id == member.id ? e.copyWith(selected: member.selected) : e,
-      ).toList();
+      allVotingMembers = allVotingMembers
+          .map(
+            (e) =>
+                e.id == member.id ? e.copyWith(selected: member.selected) : e,
+          )
+          .toList();
       state = state.copyWith(votingMembers: updatingMembers);
     }
   }
@@ -60,9 +63,8 @@ class MemberVotingViewModel extends StateNotifier<MemberVotingState> {
       state = state.copyWith(votingMembers: allVotingMembers);
     } else {
       state = state.copyWith(
-        votingMembers: allVotingMembers
-            .where((e) => e.gender == genders[value])
-            .toList(),
+        votingMembers:
+            allVotingMembers.where((e) => e.gender == genders[value]).toList(),
       );
     }
   }

@@ -53,7 +53,7 @@ class DialogManager {
                     child: GradientButton(
                       okButtonLabel,
                       size: GradientButtonSize.small,
-                      onPressed: () {},
+                      onPressed: onOkPressed,
                     ),
                   ),
                 ],

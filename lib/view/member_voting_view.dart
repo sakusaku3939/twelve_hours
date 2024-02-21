@@ -9,7 +9,12 @@ import 'package:twelve_hours/view/component/voting_profile_icon.dart';
 import 'package:twelve_hours/viewmodel/member_voting/member_voting_viewmodel.dart';
 
 class MemberVotingView extends HookConsumerWidget {
-  const MemberVotingView({super.key});
+  const MemberVotingView({
+    super.key,
+    required this.roomId,
+  });
+
+  final String roomId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

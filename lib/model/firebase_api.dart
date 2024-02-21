@@ -12,9 +12,10 @@ class FirebaseApi {
 
   factory FirebaseApi() => _instance;
 
-  Future<void> createRoom() async {
+  final userId = const Uuid().v4();
+
+  Future<String> createRoom() async {
     final ref = FirebaseDatabase.instance.ref("rooms");
-    final userId = const Uuid().v4();
     final random = Random();
     late String roomId;
     bool exists = true;
@@ -38,7 +39,25 @@ class FirebaseApi {
       "createAt": DateTime.now().toIso8601String(),
     });
 
-    print('Room $roomId created successfully');
+    print("Room $roomId created successfully");
+    return roomId;
+  }
+
+  void joinRoom({
+    required String roomId,
+    required void Function(Object?) onValueChanged,
+  }) async {
+    final ref = FirebaseDatabase.instance.ref("rooms/$roomId");
+    ref.onValue.listen((DatabaseEvent event) {
+      final data = event.snapshot.value;
+      onValueChanged(data);
+    });
+    print("Room $roomId joined successfully");
+  }
+
+  Future<bool> existsRoom({required String roomId}) async {
+    final res = await FirebaseDatabase.instance.ref("rooms/$roomId").get();
+    return res.exists;
   }
 
   Future<void> _testCreateRoom() async {
