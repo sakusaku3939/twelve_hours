@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:twelve_hours/viewmodel/room_card/room_card_viewmodel.dart';
 
 import '../../constant/color_palette.dart';
+import 'dialog_manager.dart';
 
 class ProgressTimer extends HookConsumerWidget {
   const ProgressTimer({
@@ -41,52 +42,60 @@ class ProgressTimer extends HookConsumerWidget {
 
     return Padding(
       padding: const EdgeInsets.all(16),
-      child: AspectRatio(
-        aspectRatio: 1.0,
-        child: Stack(
-          children: <Widget>[
-            Positioned.fill(
-              child: AnimatedBuilder(
-                animation: controller,
-                builder: (BuildContext context, Widget? child) {
-                  return CustomPaint(
-                    painter: TimerPainter(
+      child: GestureDetector(
+        onTap: () => DialogManager.show(
+          title: "すぐに確認したい？",
+          content: "400円を課金することで12時間分をショートカットすることができます！",
+          okButtonLabel: "購入する！",
+          onOkPressed: () {},
+        ),
+        child: AspectRatio(
+          aspectRatio: 1.0,
+          child: Stack(
+            children: <Widget>[
+              Positioned.fill(
+                child: AnimatedBuilder(
+                  animation: controller,
+                  builder: (BuildContext context, Widget? child) {
+                    return CustomPaint(
+                      painter: TimerPainter(
+                        animation: controller,
+                        backgroundColor: Colors.white,
+                        color: ColorPalette.pink,
+                      ),
+                    );
+                  },
+                ),
+              ),
+              Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      "${DateFormat('yyyy/MM/dd').format(room.date)} のルーム",
+                      style: const TextStyle(
+                        fontSize: 12,
+                        height: 1.3,
+                        color: ColorPalette.lightGray,
+                      ),
+                    ),
+                    AnimatedBuilder(
                       animation: controller,
-                      backgroundColor: Colors.white,
-                      color: ColorPalette.pink,
+                      builder: (BuildContext context, Widget? child) {
+                        return Text(
+                          timerText(controller),
+                          style: const TextStyle(
+                            fontSize: 40,
+                            height: 1.2,
+                          ),
+                        );
+                      },
                     ),
-                  );
-                },
+                  ],
+                ),
               ),
-            ),
-            Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    "${DateFormat('yyyy/MM/dd').format(room.date)} のルーム",
-                    style: const TextStyle(
-                      fontSize: 12,
-                      height: 1.3,
-                      color: ColorPalette.lightGray,
-                    ),
-                  ),
-                  AnimatedBuilder(
-                    animation: controller,
-                    builder: (BuildContext context, Widget? child) {
-                      return Text(
-                        timerText(controller),
-                        style: const TextStyle(
-                          fontSize: 40,
-                          height: 1.2,
-                        ),
-                      );
-                    },
-                  ),
-                ],
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
