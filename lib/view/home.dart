@@ -6,7 +6,9 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:twelve_hours/constant/color_palette.dart';
+import 'package:twelve_hours/constant/global_context.dart';
 import 'package:twelve_hours/constant/main_area.dart';
+import 'package:twelve_hours/model/firebase_api.dart';
 import 'package:twelve_hours/model/local_storage.dart';
 import 'package:twelve_hours/view/component/result_card.dart';
 import 'package:twelve_hours/view/id_input_view.dart';
@@ -53,12 +55,12 @@ class Home extends HookConsumerWidget {
                         const SizedBox(height: 12),
                         GradientButton(
                           "ルームを作成",
-                          onPressed: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const MemberVotingView(),
-                            ),
-                          ),
+                          onPressed: () async {
+                            await FirebaseApi().createRoom();
+                            GlobalNavigator.push(
+                              const MemberVotingView(),
+                            );
+                          },
                         ),
                       ],
                     ),

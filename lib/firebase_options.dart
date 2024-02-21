@@ -52,6 +52,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '242778632070',
     projectId: 'hours-929ea',
     authDomain: 'hours-929ea.firebaseapp.com',
+    databaseURL: 'https://hours-929ea-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'hours-929ea.appspot.com',
     measurementId: 'G-177HMH7TXX',
   );
@@ -61,6 +62,7 @@ class DefaultFirebaseOptions {
     appId: '1:242778632070:android:c2a4282640db2b5a5e0607',
     messagingSenderId: '242778632070',
     projectId: 'hours-929ea',
+    databaseURL: 'https://hours-929ea-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'hours-929ea.appspot.com',
   );
 
@@ -69,6 +71,7 @@ class DefaultFirebaseOptions {
     appId: '1:242778632070:ios:a6fe581424a7313a5e0607',
     messagingSenderId: '242778632070',
     projectId: 'hours-929ea',
+    databaseURL: 'https://hours-929ea-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'hours-929ea.appspot.com',
     iosBundleId: 'com.example.twelveHours',
   );
