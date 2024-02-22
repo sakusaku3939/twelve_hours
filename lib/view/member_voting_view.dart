@@ -19,6 +19,10 @@ class MemberVotingView extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final current = useState(0);
+    useEffect(() {
+      ref.read(memberVotingProvider.notifier).init(roomId);
+      return null;
+    }, []);
     return Scaffold(
       body: SafeArea(
         child: MainArea(
@@ -28,9 +32,9 @@ class MemberVotingView extends HookConsumerWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Text(
-                    "ID: 1234",
-                    style: TextStyle(
+                  Text(
+                    "ID: $roomId",
+                    style: const TextStyle(
                       fontSize: 24,
                     ),
                   ),

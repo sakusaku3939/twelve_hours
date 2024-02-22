@@ -17,11 +17,9 @@ class MemberVotingViewModel extends StateNotifier<MemberVotingState> {
   MemberVotingViewModel(this.ref)
       : super(const MemberVotingState(
           votingMembers: [],
-        )) {
-    init();
-  }
+        ));
 
-  void init() {
+  void init(String roomId) {
     allVotingMembers = [
       const VotingMember(id: 0, name: "name", gender: "男性", selected: false),
       const VotingMember(id: 1, name: "name", gender: "男性", selected: false),
