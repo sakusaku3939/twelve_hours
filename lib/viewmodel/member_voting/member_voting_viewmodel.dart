@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:twelve_hours/model/firebase_api.dart';
+import 'package:twelve_hours/view/component/dialog_manager.dart';
 import 'package:twelve_hours/viewmodel/member_voting/member_voting_state/voting_member.dart';
 
 import 'member_voting_state/member_voting_state.dart';
@@ -79,5 +80,14 @@ class MemberVotingViewModel extends StateNotifier<MemberVotingState> {
             allVotingMembers.where((e) => e.gender == genders[value]).toList(),
       );
     }
+  }
+
+  void submitSelected() {
+    DialogManager.show(
+      title: "確定する？",
+      content: "この選択で確定しますか？この後に変更することはできません。",
+      okButtonLabel: "OK！",
+      onOkPressed: () => {},
+    );
   }
 }

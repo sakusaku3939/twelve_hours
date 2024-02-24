@@ -26,6 +26,7 @@ class MemberVotingView extends HookConsumerWidget {
       return null;
     }, []);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: MainArea(
           child: Center(
@@ -41,9 +42,9 @@ class MemberVotingView extends HookConsumerWidget {
                     ),
                   ),
                   const SizedBox(height: 8),
-                  const Text(
-                    "6人",
-                    style: TextStyle(
+                  Text(
+                    "${ref.read(memberVotingProvider.notifier).allVotingMembers.length}人",
+                    style: const TextStyle(
                       fontSize: 32,
                     ),
                   ),
@@ -130,7 +131,11 @@ class MemberVotingView extends HookConsumerWidget {
                     ),
                   ),
                   const SizedBox(height: 56),
-                  const GradientButton("選択を確定"),
+                  GradientButton(
+                    "選択を確定",
+                    onPressed:
+                        ref.read(memberVotingProvider.notifier).submitSelected,
+                  ),
                 ],
               ),
             ),
