@@ -26,6 +26,7 @@ class MemberVotingViewModel extends StateNotifier<MemberVotingState> {
       onValueChanged: (rawData) {
         final data = Map<String, dynamic>.from(rawData as Map);
         final members = Map<String, dynamic>.from(data["members"]);
+        allVotingMembers = [];
 
         for (final member in members.entries) {
           allVotingMembers.add(
@@ -37,7 +38,9 @@ class MemberVotingViewModel extends StateNotifier<MemberVotingState> {
             ),
           );
         }
-        state = state.copyWith(votingMembers: allVotingMembers);
+        if (mounted) {
+          state = state.copyWith(votingMembers: allVotingMembers);
+        }
       },
     );
   }

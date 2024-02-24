@@ -48,6 +48,12 @@ class FirebaseApi {
     required void Function(Object?) onValueChanged,
   }) async {
     final ref = FirebaseDatabase.instance.ref("rooms/$roomId");
+    await ref.child("members").update({
+      userId: {
+        "name": LocalStorage.prefs.getString("name") ?? "anonymous",
+        "gender": LocalStorage.prefs.getString("gender") ?? "男性",
+      },
+    });
     ref.onValue.listen((DatabaseEvent event) {
       final data = event.snapshot.value;
       onValueChanged(data);
