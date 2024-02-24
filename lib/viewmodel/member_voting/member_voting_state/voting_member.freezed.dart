@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$VotingMember {
-  int get id => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get gender => throw _privateConstructorUsedError;
   bool get selected => throw _privateConstructorUsedError;
@@ -32,7 +32,7 @@ abstract class $VotingMemberCopyWith<$Res> {
           VotingMember value, $Res Function(VotingMember) then) =
       _$VotingMemberCopyWithImpl<$Res, VotingMember>;
   @useResult
-  $Res call({int id, String name, String gender, bool selected});
+  $Res call({String id, String name, String gender, bool selected});
 }
 
 /// @nodoc
@@ -57,7 +57,7 @@ class _$VotingMemberCopyWithImpl<$Res, $Val extends VotingMember>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -82,7 +82,7 @@ abstract class _$$VotingMemberImplCopyWith<$Res>
       __$$VotingMemberImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String name, String gender, bool selected});
+  $Res call({String id, String name, String gender, bool selected});
 }
 
 /// @nodoc
@@ -105,7 +105,7 @@ class __$$VotingMemberImplCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -132,7 +132,7 @@ class _$VotingMemberImpl implements _VotingMember {
       required this.selected});
 
   @override
-  final int id;
+  final String id;
   @override
   final String name;
   @override
@@ -169,13 +169,13 @@ class _$VotingMemberImpl implements _VotingMember {
 
 abstract class _VotingMember implements VotingMember {
   const factory _VotingMember(
-      {required final int id,
+      {required final String id,
       required final String name,
       required final String gender,
       required final bool selected}) = _$VotingMemberImpl;
 
   @override
-  int get id;
+  String get id;
   @override
   String get name;
   @override

@@ -20,7 +20,9 @@ class MemberVotingView extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final current = useState(0);
     useEffect(() {
-      ref.read(memberVotingProvider.notifier).init(roomId);
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        ref.read(memberVotingProvider.notifier).init(roomId);
+      });
       return null;
     }, []);
     return Scaffold(

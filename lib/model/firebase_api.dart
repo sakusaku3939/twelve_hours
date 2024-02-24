@@ -64,37 +64,37 @@ class FirebaseApi {
     final ref = FirebaseDatabase.instance.ref("rooms");
     await ref.child("1234").set({
       "members": {
-        "0": {
+        "084f935f-4c9b-442f-8bc0-f909e545136c": {
           "name": "name",
           "gender": "男性",
           "likedTo": ["2", "3"],
           "likedBy": ["1", "2"],
         },
-        "1": {
+        "d0eb769b-6693-4893-837a-314bae650901": {
           "name": "name",
           "gender": "男性",
           "likedTo": ["2", "0"],
           "likedBy": ["3"],
         },
-        "2": {
+        "4049d28a-4ed4-4017-aad8-79f7b52eaf5d": {
           "name": "name",
           "gender": "女性",
           "likedTo": ["0"],
           "likedBy": ["0", "1"],
         },
-        "3": {
+        "a93375e1-1131-46d2-82c6-ae86d3a76566": {
           "name": "name",
           "gender": "女性",
           "likedTo": ["1", "5"],
           "likedBy": ["0", "5"],
         },
-        "4": {
+        "af8b06af-84ac-489b-b4bb-aedfa79b8386": {
           "name": "name",
           "gender": "その他",
           "likedTo": ["5"],
           "likedBy": ["5"],
         },
-        "5": {
+        "ec2ec759-39a6-40dd-8534-73bb5106cfce": {
           "name": "name",
           "gender": "男性",
           "likedTo": ["3", "4"],

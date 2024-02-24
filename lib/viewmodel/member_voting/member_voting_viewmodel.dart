@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:twelve_hours/model/firebase_api.dart';
 import 'package:twelve_hours/viewmodel/member_voting/member_voting_state/voting_member.dart';
 
 import 'member_voting_state/member_voting_state.dart';
@@ -12,7 +13,7 @@ class MemberVotingViewModel extends StateNotifier<MemberVotingState> {
   final Ref ref;
 
   int totalSelected = 0;
-  late List<VotingMember> allVotingMembers;
+  List<VotingMember> allVotingMembers = [];
 
   MemberVotingViewModel(this.ref)
       : super(const MemberVotingState(
@@ -20,15 +21,25 @@ class MemberVotingViewModel extends StateNotifier<MemberVotingState> {
         ));
 
   void init(String roomId) {
-    allVotingMembers = [
-      const VotingMember(id: 0, name: "name", gender: "男性", selected: false),
-      const VotingMember(id: 1, name: "name", gender: "男性", selected: false),
-      const VotingMember(id: 2, name: "name", gender: "女性", selected: false),
-      const VotingMember(id: 3, name: "name", gender: "女性", selected: false),
-      const VotingMember(id: 4, name: "name", gender: "その他", selected: false),
-      const VotingMember(id: 5, name: "name", gender: "男性", selected: false),
-    ];
-    state = state.copyWith(votingMembers: allVotingMembers);
+    FirebaseApi().joinRoom(
+      roomId: roomId,
+      onValueChanged: (rawData) {
+        final data = Map<String, dynamic>.from(rawData as Map);
+        final members = Map<String, dynamic>.from(data["members"]);
+
+        for (final member in members.entries) {
+          allVotingMembers.add(
+            VotingMember(
+              id: member.key,
+              name: member.value["name"] ?? "anonymous",
+              gender: member.value["gender"] ?? "男性",
+              selected: false,
+            ),
+          );
+        }
+        state = state.copyWith(votingMembers: allVotingMembers);
+      },
+    );
   }
 
   void toggleSelected(int index) {
