@@ -24,7 +24,7 @@ class SqliteHelper {
     final path = join(databasesPath, "Database.db");
 
     // テスト用
-    // await deleteDatabase(path);
+    await deleteDatabase(path);
 
     final database = await openDatabase(
       path,
